@@ -1,22 +1,15 @@
-import smtplib, ssl
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import smtplib
 
 def send_email(emailTo,emailSubjet,emailBody):
   port = 587
-  emailFrom = "ruben_nogueira@hotmail.com"
+  emailFrom = "rubendeveloper73@gmail.com"
   password = input("Type your password and press enter:")
+  message = f'Subject: {emailSubjet}\n\n{emailBody}'
 
-  message = MIMEMultipart()
-  message["From"] = emailFrom
-  message["To"] = emailTo
-  message["Subject"] = emailSubjet
-  message.attach(MIMEText(emailBody, "plain"))
-  context = ssl.create_default_context()
-
-  with smtplib.SMTP_SSL("smtp.office365.com", port) as server:
+  with smtplib.SMTP("smtp.gmail.com", port) as server:
      server.starttls()
-     server.login(emailFrom,password)
+     server.ehlo()
+     server.login(emailFrom, password)
      server.sendmail(emailFrom, emailTo, message)
 
 
