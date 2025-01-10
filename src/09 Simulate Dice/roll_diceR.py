@@ -6,6 +6,7 @@ def roll_dice(*dice, num_trails=1_000_000):
    for _ in range(num_trails):
       counts[sum((random.randint(1, sides) for sides in dice))] += 1
    
+   print(counts)
    print("\nResults\tProbability")
    for results in range(len(dice), sum(dice) + 1):
       print(f"{results}\t{counts[results] * 100 / num_trails :0.2f}%")
